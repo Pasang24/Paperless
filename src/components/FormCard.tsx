@@ -24,38 +24,38 @@ function FormCard({ formData }: FormCardProps) {
   return (
     <Card>
       <CardContent className="flex flex-col justify-between gap-3 sm:flex-row">
-        <div className="flex flex-col gap-1.5 sm:w-[60%]">
+        <div className="flex flex-col gap-1.5 sm:w-[60%] text-primary">
           <p className="flex items-center gap-1 text-xl">
             <FileSpreadsheet className="shrink-0" />
-            <span className="whitespace-nowrap overflow-ellipsis overflow-hidden">
+            <span className="font-semibold whitespace-nowrap overflow-ellipsis overflow-hidden">
               Contact Form
             </span>
           </p>
-          <p className="flex items-center ml-6.5">
+          <p className="flex items-center text-muted-foreground ml-6.5">
             <FileChartLine size={18} />
             12 Responses
           </p>
           <div className="flex gap-2 ml-6.5">
-            <Button>
+            <Button variant={"default"} className="rounded-full">
               <Eye />
               View
             </Button>
-            <Button variant={"secondary"}>
+            <Button variant={"secondary"} className="rounded-full">
               <FilePen />
               Edit
             </Button>
-            <Button variant={"outline"}>
+            <Button variant={"secondary"} className="rounded-full">
               <Trash2 />
               Delete
             </Button>
           </div>
         </div>
         <div className="flex flex-col gap-1.5 ml-6.5">
-          <p className="flex items-center gap-1">
+          <p className="flex items-center gap-1 text-muted-foreground">
             <Calendar size={18} />
             Created: May 12, 2025
           </p>
-          <p className="flex items-center gap-1">
+          <p className="flex items-center gap-1 text-muted-foreground">
             <CalendarSync size={18} />
             Last Edited: May 12, 2025
           </p>
