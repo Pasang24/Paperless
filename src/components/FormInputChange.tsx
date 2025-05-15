@@ -1,0 +1,73 @@
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import { FormInputProps } from "./FormInput";
+import { FormInputSchema } from "@/types/form";
+
+type InputTypes = Record<FormInputSchema["type"], string>;
+type InputSchemas = Record<FormInputSchema["type"], FormInputSchema>;
+
+function FormInputChange({ formInput, changeFormInput }: FormInputProps) {
+  const inputTypes: InputTypes = {
+    "input": "Short Answer",
+    "textarea": "Paragraph",
+    "radio": "Multiple Choices",
+    "checkbox": "Checkboxes",
+  };
+  const inputSchemas: InputSchemas = {
+    "input": { id: "", label: formInput.label, required: false, type: "input" },
+    "textarea": {
+      id: "",
+      label: formInput.label,
+      required: false,
+      type: "textarea",
+    },
+    "checkbox": {
+      id: "",
+      label: formInput.label,
+      required: false,
+      options: [],
+      type: "checkbox",
+    },
+    "radio": {
+      id: "",
+      label: formInput.label,
+      required: false,
+      options: [],
+      type: "radio",
+    },
+  };
+
+  const handleFormInputTypeChange = (newType: string) => {
+    changeFormInput((prevFormSchema) => {
+      return prevFormSchema.map((schema) =>
+        schema.id === formInput.id
+          ? inputSchemas[newType as keyof InputSchemas]
+          : schema
+      );
+    });
+  };
+  return (
+    <Select onValueChange={handleFormInputTypeChange}>
+      <SelectTrigger className="w-[180px] border border-accent rounded-sm">
+        <SelectValue
+          defaultValue={formInput.type}
+          placeholder={inputTypes[formInput.type]}
+        />
+      </SelectTrigger>
+      <SelectContent>
+        {Object.entries(inputTypes).map((inputType) => (
+          <SelectItem value={inputType[0]} key={inputType[0]}>
+            {inputType[1]}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
+}
+
+export default FormInputChange;

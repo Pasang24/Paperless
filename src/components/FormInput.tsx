@@ -2,18 +2,12 @@ import React from "react";
 import { Card, CardContent } from "./ui/card";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
 import { Button } from "./ui/button";
 import { Trash2 } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { Switch } from "./ui/switch";
 import { FormInputSchema } from "@/types/form";
+import FormInputChange from "./FormInputChange";
 
 export interface FormInputProps {
   formInput: FormInputSchema;
@@ -65,17 +59,10 @@ function FormInput({ formInput, changeFormInput }: FormInputProps) {
                 placeholder="Question"
                 id={formInput.id}
               />
-              <Select>
-                <SelectTrigger className="w-[180px] border border-accent rounded-sm">
-                  <SelectValue defaultValue="text" placeholder="Short Answer" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="text">Short Answer</SelectItem>
-                  <SelectItem value="textarea">Paragraph</SelectItem>
-                  <SelectItem value="radio">Multiple Choice</SelectItem>
-                  <SelectItem value="checkbox">Checkboxes</SelectItem>
-                </SelectContent>
-              </Select>
+              <FormInputChange
+                formInput={formInput}
+                changeFormInput={changeFormInput}
+              />
             </div>
             {formInputs[formInput.type]}
             <div className="flex justify-end items-center gap-4 h-5 mt-2">
