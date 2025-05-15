@@ -19,30 +19,26 @@ function FormInputChange({ formInput, changeFormInput }: FormInputProps) {
     "checkbox": "Checkboxes",
   };
   const inputSchemas: InputSchemas = {
-    "input": { id: "", label: formInput.label, required: false, type: "input" },
+    "input": { ...formInput, type: "input" },
     "textarea": {
-      id: "",
-      label: formInput.label,
-      required: false,
+      ...formInput,
       type: "textarea",
     },
     "checkbox": {
-      id: "",
-      label: formInput.label,
-      required: false,
+      ...formInput,
       options: [],
       type: "checkbox",
     },
     "radio": {
-      id: "",
-      label: formInput.label,
-      required: false,
+      ...formInput,
       options: [],
       type: "radio",
     },
   };
 
   const handleFormInputTypeChange = (newType: string) => {
+    if (newType === formInput.type) return;
+
     changeFormInput((prevFormSchema) => {
       return prevFormSchema.map((schema) =>
         schema.id === formInput.id

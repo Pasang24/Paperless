@@ -1,8 +1,9 @@
 "use client";
 
 import { Button } from "./ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormInputSchema } from "@/types/form";
+import { nanoid } from "nanoid";
 import FormTitleDescription from "./FormTitleDescription";
 import FormInput from "./FormInput";
 
@@ -10,8 +11,23 @@ function FormContainer() {
   const [formTitle, setFormTitle] = useState("");
   const [formDescription, setFormDescription] = useState("");
   const [formSchema, setFormSchema] = useState<FormInputSchema[]>([
-    { id: "1", label: "Question", type: "input", required: false },
+    { id: "placeholder_id", label: "Question", type: "input", required: false },
   ]);
+
+  const handleAddQuestion = () => {
+    setFormSchema((prevFormSchema) => [
+      ...prevFormSchema,
+      { id: nanoid(6), label: "Question", type: "input", required: false },
+    ]);
+  };
+
+  useEffect(() => {
+    // replace the placeholder id with a random id
+    setFormSchema([
+      { id: nanoid(6), label: "Question", type: "input", required: false },
+    ]);
+  }, []);
+
   return (
     <div className="space-y-2">
       <FormTitleDescription
@@ -27,7 +43,7 @@ function FormContainer() {
           key={schema.id}
         />
       ))}
-      <Button>+ Add Question</Button>
+      <Button onClick={handleAddQuestion}>+ Add Question</Button>
     </div>
   );
 }
