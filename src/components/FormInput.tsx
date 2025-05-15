@@ -1,9 +1,10 @@
 import React from "react";
+import { nanoid } from "nanoid";
 import { Card, CardContent } from "./ui/card";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { Trash2 } from "lucide-react";
+import { Copy, Trash2 } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { Switch } from "./ui/switch";
 import { FormInputSchema } from "@/types/form";
@@ -39,6 +40,25 @@ function FormInput({ formInput, changeFormInput }: FormInputProps) {
     });
   };
 
+  const handleInputFieldDuplicate = () => {
+    changeFormInput((prevFormSchema) => {
+      // first find the index of the form input to be duplicated
+      const duplicateIndex = prevFormSchema.findIndex(
+        (schema) => schema.id === formInput.id
+      );
+      // the separate the left and right half of the formSchema array
+      const leftHalf = prevFormSchema.slice(0, duplicateIndex + 1);
+      const rightHalf = prevFormSchema.slice(duplicateIndex + 1);
+
+      // then update the formSchema by inserting the form input between the two halves
+      return [
+        ...leftHalf,
+        { ...prevFormSchema[duplicateIndex], id: nanoid(6) },
+        ...rightHalf,
+      ];
+    });
+  };
+
   const handleInputFieldRemove = () => {
     changeFormInput((prevFormSchema) => {
       return prevFormSchema.filter((schema) => schema.id !== formInput.id);
@@ -66,6 +86,14 @@ function FormInput({ formInput, changeFormInput }: FormInputProps) {
             </div>
             {formInputs[formInput.type]}
             <div className="flex justify-end items-center gap-4 h-5 mt-2">
+              <Button
+                onClick={handleInputFieldDuplicate}
+                variant={"ghost"}
+                size={"icon"}
+                className="rounded-full"
+              >
+                <Copy />
+              </Button>
               <Button
                 onClick={handleInputFieldRemove}
                 variant={"ghost"}
