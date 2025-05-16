@@ -1,19 +1,26 @@
 import React from "react";
-import { FormCheckBox, FormInputSchema } from "@/types/form";
+import { FormCheckBox, FormMultiChoice, FormInputSchema } from "@/types/form";
 import { Input } from "./ui/input";
-import { Square, X } from "lucide-react";
+import { Square, Circle, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { nanoid } from "nanoid";
 
 interface FormCheckboxFieldProps {
+  type: "checkbox";
   formInput: FormCheckBox;
   changeFormInput: React.Dispatch<React.SetStateAction<FormInputSchema[]>>;
 }
+interface FormMultiChoiceProps {
+  type: "radio";
+  formInput: FormMultiChoice;
+  changeFormInput: React.Dispatch<React.SetStateAction<FormInputSchema[]>>;
+}
 
-function FormCheckboxField({
+function FormOptionsField({
+  type,
   formInput,
   changeFormInput,
-}: FormCheckboxFieldProps) {
+}: FormCheckboxFieldProps | FormMultiChoiceProps) {
   const isFormCheckbox = (
     schema: FormInputSchema | FormCheckBox
   ): schema is FormCheckBox => {
@@ -86,7 +93,8 @@ function FormCheckboxField({
     <div className="flex flex-col gap-2">
       {formInput.options.map((option) => (
         <div key={option.id} className="flex items-center gap-2">
-          <Square stroke="gray" />
+          {type === "checkbox" && <Square stroke="gray" />}
+          {type === "radio" && <Circle stroke="gray" />}
           <Input
             value={option.option}
             onChange={(event) =>
@@ -110,4 +118,4 @@ function FormCheckboxField({
   );
 }
 
-export default FormCheckboxField;
+export default FormOptionsField;

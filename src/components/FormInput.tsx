@@ -9,7 +9,7 @@ import { Separator } from "./ui/separator";
 import { Switch } from "./ui/switch";
 import { FormInputSchema } from "@/types/form";
 import FormInputChange from "./FormInputChange";
-import FormCheckboxField from "./FormCheckboxField";
+import FormOptionsField from "./FormOptionsField";
 
 export interface FormInputProps {
   formInput: FormInputSchema;
@@ -24,10 +24,18 @@ function FormInput({ formInput, changeFormInput }: FormInputProps) {
     case "textarea":
       break;
     case "radio":
+      formInputField = (
+        <FormOptionsField
+          type="radio"
+          formInput={formInput}
+          changeFormInput={changeFormInput}
+        />
+      );
       break;
     case "checkbox":
       formInputField = (
-        <FormCheckboxField
+        <FormOptionsField
+          type="checkbox"
           formInput={formInput}
           changeFormInput={changeFormInput}
         />

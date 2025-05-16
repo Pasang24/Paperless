@@ -32,7 +32,7 @@ function FormInputChange({ formInput, changeFormInput }: FormInputProps) {
     },
     "radio": {
       ...formInput,
-      options: [],
+      options: [{ id: nanoid(3), option: "Option 1" }],
       type: "radio",
     },
   };
