@@ -12,6 +12,11 @@ interface BaseFormInput {
   required: boolean;
 }
 
+interface FormCheckBoxeOption {
+  id: string;
+  option: string;
+}
+
 export interface FormText extends BaseFormInput {
   type: "input" | "textarea";
 }
@@ -23,5 +28,5 @@ export interface FormMultiChoice extends BaseFormInput {
 
 export interface FormCheckBox extends BaseFormInput {
   type: "checkbox";
-  options: string[];
+  options: FormCheckBoxeOption[];
 }

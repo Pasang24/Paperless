@@ -9,6 +9,7 @@ import { Separator } from "./ui/separator";
 import { Switch } from "./ui/switch";
 import { FormInputSchema } from "@/types/form";
 import FormInputChange from "./FormInputChange";
+import FormCheckboxField from "./FormCheckboxField";
 
 export interface FormInputProps {
   formInput: FormInputSchema;
@@ -16,12 +17,24 @@ export interface FormInputProps {
 }
 
 function FormInput({ formInput, changeFormInput }: FormInputProps) {
-  const formInputs = {
-    "input": "input",
-    "textarea": "textarea",
-    "checkbox": "checkbox",
-    "radio": "radio",
-  };
+  let formInputField = <></>;
+
+  switch (formInput.type) {
+    case "input":
+    case "textarea":
+      break;
+    case "radio":
+      break;
+    case "checkbox":
+      formInputField = (
+        <FormCheckboxField
+          formInput={formInput}
+          changeFormInput={changeFormInput}
+        />
+      );
+      break;
+  }
+
   const handleInputLabelChange = (newLabel: string) => {
     changeFormInput((prevFormSchema) => {
       return prevFormSchema.map((schema) =>
@@ -84,7 +97,7 @@ function FormInput({ formInput, changeFormInput }: FormInputProps) {
                 changeFormInput={changeFormInput}
               />
             </div>
-            {formInputs[formInput.type]}
+            {formInputField}
             <div className="flex justify-end items-center gap-4 h-5 mt-2">
               <Button
                 onClick={handleInputFieldDuplicate}

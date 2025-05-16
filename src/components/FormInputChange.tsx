@@ -7,6 +7,7 @@ import {
 } from "./ui/select";
 import { FormInputProps } from "./FormInput";
 import { FormInputSchema } from "@/types/form";
+import { nanoid } from "nanoid";
 
 type InputTypes = Record<FormInputSchema["type"], string>;
 type InputSchemas = Record<FormInputSchema["type"], FormInputSchema>;
@@ -26,7 +27,7 @@ function FormInputChange({ formInput, changeFormInput }: FormInputProps) {
     },
     "checkbox": {
       ...formInput,
-      options: [],
+      options: [{ id: nanoid(3), option: "Option 1" }],
       type: "checkbox",
     },
     "radio": {
