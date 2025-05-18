@@ -13,20 +13,22 @@ interface FormPreviewProps {
 
 function FormPreview({ formData }: FormPreviewProps) {
   return (
-    <div>
-      <Card>
-        <CardContent className="flex flex-col gap-6">
-          {formData.title && (
-            <h2 className="font-bold text-3xl">{formData.title}</h2>
-          )}
-          {formData.description && <p>{formData.description}</p>}
-          <div className="space-y-4">
-            {formData.formSchema.map((schema) => (
-              <FormInputFieldPreview key={schema.id} schema={schema} />
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+    <div className="space-y-4">
+      {formData.title || formData.description ? (
+        <Card>
+          <CardContent className="space-y-6">
+            {formData.title && (
+              <h2 className="font-bold text-3xl">{formData.title}</h2>
+            )}
+            {formData.description && <p>{formData.description}</p>}
+          </CardContent>
+        </Card>
+      ) : (
+        <></>
+      )}
+      {formData.formSchema.map((schema) => (
+        <FormInputFieldPreview key={schema.id} schema={schema} />
+      ))}
       <div className="flex justify-between my-4">
         <Button disabled>Submit</Button>
         <Button variant={"ghost"} disabled>

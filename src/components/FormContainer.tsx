@@ -56,7 +56,7 @@ function FormContainer() {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="questions">
-          <div className="space-y-2">
+          <div className="space-y-4">
             <FormTitleDescription
               title={formTitle}
               setTitle={setFormTitle}
