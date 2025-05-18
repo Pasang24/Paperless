@@ -8,16 +8,34 @@ import {
 import { FormInputProps } from "./FormInput";
 import { FormInputSchema } from "@/types/form";
 import { nanoid } from "nanoid";
+import { AlignLeft, CircleDot, CopyCheck, Equal } from "lucide-react";
 
-type InputTypes = Record<FormInputSchema["type"], string>;
+type InputTypes = Record<FormInputSchema["type"], React.ReactNode>;
 type InputSchemas = Record<FormInputSchema["type"], FormInputSchema>;
 
 function FormInputChange({ formInput, changeFormInput }: FormInputProps) {
   const inputTypes: InputTypes = {
-    "input": "Short Answer",
-    "textarea": "Paragraph",
-    "radio": "Multiple Choices",
-    "checkbox": "Checkboxes",
+    "input": (
+      <>
+        <Equal /> Short Answer
+      </>
+    ),
+    "textarea": (
+      <>
+        <AlignLeft />
+        Paragraph
+      </>
+    ),
+    "radio": (
+      <>
+        <CircleDot /> Multiple Choices
+      </>
+    ),
+    "checkbox": (
+      <>
+        <CopyCheck /> Checkboxes
+      </>
+    ),
   };
   const inputSchemas: InputSchemas = {
     "input": { ...formInput, type: "input" },
