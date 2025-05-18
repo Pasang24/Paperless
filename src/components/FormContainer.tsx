@@ -3,12 +3,13 @@
 import { Button } from "./ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useEffect, useState } from "react";
-import { NotebookPen, Eye } from "lucide-react";
+import { NotebookPen, Eye, ArrowLeft, Send } from "lucide-react";
 import { FormInputSchema } from "@/types/form";
 import { nanoid } from "nanoid";
 import FormTitleDescription from "./FormTitleDescription";
 import FormInput from "./FormInput";
 import FormPreview from "./FormPreview";
+import Link from "next/link";
 
 function FormContainer() {
   const [formTitle, setFormTitle] = useState("");
@@ -32,45 +33,59 @@ function FormContainer() {
   }, []);
 
   return (
-    <Tabs defaultValue="questions">
-      <TabsList>
-        <TabsTrigger value="questions">
-          <NotebookPen />
-          Questions
-        </TabsTrigger>
-        <TabsTrigger value="preview">
-          <Eye />
-          Preview
-        </TabsTrigger>
-      </TabsList>
-      <TabsContent value="questions">
-        <div className="space-y-2">
-          <FormTitleDescription
-            title={formTitle}
-            setTitle={setFormTitle}
-            description={formDescription}
-            setDescription={setFormDescription}
-          />
-          {formSchema.map((schema) => (
-            <FormInput
-              formInput={schema}
-              changeFormInput={setFormSchema}
-              key={schema.id}
+    <>
+      <div className="flex justify-between mb-2">
+        <Link href="/forms" className="flex gap-1">
+          <ArrowLeft />
+          Back
+        </Link>
+        <Button>
+          <Send />
+          Publish
+        </Button>
+      </div>
+      <Tabs defaultValue="questions">
+        <TabsList className="self-center">
+          <TabsTrigger value="questions">
+            <NotebookPen />
+            Questions
+          </TabsTrigger>
+          <TabsTrigger value="preview">
+            <Eye />
+            Preview
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="questions">
+          <div className="space-y-2">
+            <FormTitleDescription
+              title={formTitle}
+              setTitle={setFormTitle}
+              description={formDescription}
+              setDescription={setFormDescription}
             />
-          ))}
-          <Button onClick={handleAddQuestion}>+ Add Question</Button>
-        </div>
-      </TabsContent>
-      <TabsContent value="preview">
-        <FormPreview
-          formData={{
-            title: formTitle,
-            description: formDescription,
-            formSchema,
-          }}
-        />
-      </TabsContent>
-    </Tabs>
+            {formSchema.map((schema) => (
+              <FormInput
+                formInput={schema}
+                changeFormInput={setFormSchema}
+                key={schema.id}
+              />
+            ))}
+            <Button onClick={handleAddQuestion} variant={"outline"}>
+              + Add Question
+            </Button>
+          </div>
+        </TabsContent>
+        <TabsContent value="preview">
+          <FormPreview
+            formData={{
+              title: formTitle,
+              description: formDescription,
+              formSchema,
+            }}
+          />
+        </TabsContent>
+      </Tabs>
+    </>
   );
 }
 
