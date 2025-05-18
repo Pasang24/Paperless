@@ -1,5 +1,6 @@
 import { FormInputSchema } from "@/types/form";
 import FormTextInputPreview from "./FormTextInputPreview";
+import FormOptionsPreview from "./FormOptionsPreview";
 
 interface FormInputFieldPreviewProps {
   schema: FormInputSchema;
@@ -11,9 +12,8 @@ function FormInputFieldPreview({ schema }: FormInputFieldPreviewProps) {
     case "textarea":
       return <FormTextInputPreview schema={schema} />;
     case "radio":
-      return "This is radio button";
     case "checkbox":
-      return "This is checkbox";
+      return <FormOptionsPreview schema={schema} />;
   }
 }
 

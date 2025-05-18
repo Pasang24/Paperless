@@ -10,7 +10,7 @@ interface FormInputPreviewProps {
 function FormTextInputPreview({ schema }: FormInputPreviewProps) {
   return (
     <div className="flex flex-col gap-2">
-      <Label htmlFor={schema.id}>
+      <Label htmlFor={schema.id} className="text-lg">
         {schema.label}
         {schema.required && "*"}
       </Label>
