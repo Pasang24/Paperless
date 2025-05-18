@@ -8,6 +8,7 @@ import { FormInputSchema } from "@/types/form";
 import { nanoid } from "nanoid";
 import FormTitleDescription from "./FormTitleDescription";
 import FormInput from "./FormInput";
+import FormPreview from "./FormPreview";
 
 function FormContainer() {
   const [formTitle, setFormTitle] = useState("");
@@ -60,8 +61,14 @@ function FormContainer() {
           <Button onClick={handleAddQuestion}>+ Add Question</Button>
         </div>
       </TabsContent>
-      <TabsContent value="account">
-        <></>
+      <TabsContent value="preview">
+        <FormPreview
+          formData={{
+            title: formTitle,
+            description: formDescription,
+            formSchema,
+          }}
+        />
       </TabsContent>
     </Tabs>
   );
