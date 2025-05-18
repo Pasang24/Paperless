@@ -24,16 +24,16 @@ function FormCard({ formData }: FormCardProps) {
   return (
     <Card>
       <CardContent className="flex flex-col justify-between gap-3 sm:flex-row">
-        <div className="flex flex-col gap-1.5 sm:w-[60%] text-primary">
+        <div className="flex flex-col gap-2 sm:w-[60%] text-secondary-foreground">
           <p className="flex items-center gap-1 text-xl">
             <FileSpreadsheet className="shrink-0" />
             <span className="font-semibold whitespace-nowrap overflow-ellipsis overflow-hidden">
-              Contact Form
+              {formData.title}
             </span>
           </p>
-          <p className="flex items-center text-muted-foreground ml-6.5">
+          <p className="flex items-center text-sm text-muted-foreground ml-6.5">
             <FileChartLine size={18} />
-            12 Responses
+            {formData.responseCount} Responses
           </p>
           <div className="flex gap-2 ml-6.5">
             <Button variant={"default"} className="rounded-full">
@@ -50,14 +50,26 @@ function FormCard({ formData }: FormCardProps) {
             </Button>
           </div>
         </div>
-        <div className="flex flex-col gap-1.5 ml-6.5">
-          <p className="flex items-center gap-1 text-muted-foreground">
+        <div className="flex flex-col gap-2 ml-6.5">
+          <p className="flex items-center gap-1 text-sm text-muted-foreground">
             <Calendar size={18} />
-            Created: May 12, 2025
+            Created:{" "}
+            {new Date(formData.createdAt).toLocaleDateString("en-US", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            })}
           </p>
-          <p className="flex items-center gap-1 text-muted-foreground">
+          <p className="flex items-center gap-1 text-sm text-muted-foreground">
             <CalendarSync size={18} />
-            Last Edited: May 12, 2025
+            Last Edited:{" "}
+            {formData.updatedAt
+              ? new Date(formData.updatedAt).toLocaleDateString("en-US", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                })
+              : "Not Edited"}
           </p>
         </div>
       </CardContent>
