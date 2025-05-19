@@ -106,7 +106,7 @@ function FormInput({ formInput, changeFormInput }: FormInputProps) {
             variant={"ghost"}
             {...attributes}
             {...listeners}
-            className="self-center cursor-grab"
+            className="self-center cursor-grab touch-none"
           >
             <GripHorizontal />
           </Button>
