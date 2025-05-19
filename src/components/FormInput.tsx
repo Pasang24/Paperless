@@ -4,10 +4,12 @@ import { Card, CardContent } from "./ui/card";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { Copy, Trash2 } from "lucide-react";
+import { GripHorizontal, Copy, Trash2 } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { Switch } from "./ui/switch";
 import { FormInputSchema } from "@/types/form";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import FormInputChange from "./FormInputChange";
 import FormOptionsField from "./FormOptionsField";
 
@@ -17,6 +19,9 @@ export interface FormInputProps {
 }
 
 function FormInput({ formInput, changeFormInput }: FormInputProps) {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: formInput.id });
+
   let formInputField = <></>;
 
   switch (formInput.type) {
@@ -62,6 +67,7 @@ function FormInput({ formInput, changeFormInput }: FormInputProps) {
   };
 
   const handleInputFieldDuplicate = () => {
+    console.log("Hello");
     changeFormInput((prevFormSchema) => {
       // first find the index of the form input to be duplicated
       const duplicateIndex = prevFormSchema.findIndex(
@@ -87,9 +93,23 @@ function FormInput({ formInput, changeFormInput }: FormInputProps) {
   };
 
   return (
-    <Card>
+    <Card
+      ref={setNodeRef}
+      style={{
+        transform: CSS.Translate.toString(transform),
+        transition,
+      }}
+    >
       <CardContent>
-        <div className="space-y-3">
+        <div className="flex flex-col gap-2 -mt-5">
+          <Button
+            variant={"ghost"}
+            {...attributes}
+            {...listeners}
+            className="self-center cursor-grab"
+          >
+            <GripHorizontal />
+          </Button>
           <div className="flex flex-col gap-2">
             <Label htmlFor={formInput.id}>Write your question:</Label>
             <div className="flex gap-2">

@@ -2,6 +2,12 @@
 
 import { Button } from "./ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import { useEffect, useState } from "react";
 import { NotebookPen, Eye, ArrowLeft, Send } from "lucide-react";
 import { FormInputSchema } from "@/types/form";
@@ -23,6 +29,23 @@ function FormContainer() {
       ...prevFormSchema,
       { id: nanoid(6), label: "Question", type: "input", required: false },
     ]);
+  };
+
+  const handleReorderInputFields = (event: DragEndEvent) => {
+    if (!event.over) return;
+
+    if (event.active.id !== event.over.id) {
+      setFormSchema((prevFormSchema) => {
+        const oldIndex = prevFormSchema.findIndex(
+          (schema) => schema.id === event.active.id
+        );
+        const newIndex = prevFormSchema.findIndex(
+          (schema) => schema.id === event.over?.id
+        );
+
+        return arrayMove(prevFormSchema, oldIndex, newIndex);
+      });
+    }
   };
 
   useEffect(() => {
@@ -63,13 +86,20 @@ function FormContainer() {
               description={formDescription}
               setDescription={setFormDescription}
             />
-            {formSchema.map((schema) => (
-              <FormInput
-                formInput={schema}
-                changeFormInput={setFormSchema}
-                key={schema.id}
-              />
-            ))}
+            <DndContext onDragEnd={handleReorderInputFields}>
+              <SortableContext
+                items={formSchema}
+                strategy={verticalListSortingStrategy}
+              >
+                {formSchema.map((schema) => (
+                  <FormInput
+                    formInput={schema}
+                    changeFormInput={setFormSchema}
+                    key={schema.id}
+                  />
+                ))}
+              </SortableContext>
+            </DndContext>
             <Button onClick={handleAddQuestion} variant={"outline"}>
               + Add Question
             </Button>
