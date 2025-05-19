@@ -12,7 +12,7 @@ interface BaseFormInput {
   required: boolean;
 }
 
-interface FormOption {
+export interface FormOption {
   id: string;
   option: string;
 }
