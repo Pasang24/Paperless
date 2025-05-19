@@ -8,6 +8,7 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { useEffect, useState } from "react";
 import { NotebookPen, Eye, ArrowLeft, Send } from "lucide-react";
 import { FormInputSchema } from "@/types/form";
@@ -86,7 +87,10 @@ function FormContainer() {
               description={formDescription}
               setDescription={setFormDescription}
             />
-            <DndContext onDragEnd={handleReorderInputFields}>
+            <DndContext
+              onDragEnd={handleReorderInputFields}
+              modifiers={[restrictToWindowEdges]}
+            >
               <SortableContext
                 items={formSchema}
                 strategy={verticalListSortingStrategy}
