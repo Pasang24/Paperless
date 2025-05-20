@@ -12,6 +12,7 @@ import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { useEffect, useState } from "react";
 import { NotebookPen, Eye, ArrowLeft, Send } from "lucide-react";
 import { FormInputSchema } from "@/types/form";
+import { usePrevious } from "@/hooks/usePrevious";
 import { nanoid } from "nanoid";
 import FormTitleDescription from "./FormTitleDescription";
 import FormInput from "./FormInput";
@@ -24,6 +25,8 @@ function FormContainer() {
   const [formSchema, setFormSchema] = useState<FormInputSchema[]>([
     { id: "placeholder_id", label: "Question", type: "input", required: false },
   ]);
+
+  const prevFormSchema = usePrevious(formSchema);
 
   const handleAddQuestion = () => {
     setFormSchema((prevFormSchema) => [
@@ -55,6 +58,12 @@ function FormContainer() {
       { id: nanoid(6), label: "Question", type: "input", required: false },
     ]);
   }, []);
+
+  useEffect(() => {
+    if (formSchema.length > (prevFormSchema?.length || 0)) {
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+  }, [formSchema]);
 
   return (
     <>
