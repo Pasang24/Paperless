@@ -141,7 +141,7 @@ function FormOptionsField({
         <div className="flex flex-col gap-2">
           {formInput.options.map((option) => (
             <OpionField
-              type={formInput.type}
+              type={type}
               option={option}
               handleChangeOption={handleChangeOption}
               handleRemoveOption={handleRemoveOption}
