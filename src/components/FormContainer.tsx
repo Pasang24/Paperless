@@ -25,6 +25,7 @@ function FormContainer() {
   const [formSchema, setFormSchema] = useState<FormInputSchema[]>([
     { id: "placeholder_id", label: "Question", type: "input", required: false },
   ]);
+  const [scrollToBottom, setScrollToBottom] = useState(false);
 
   const prevFormSchema = usePrevious(formSchema);
 
@@ -33,6 +34,8 @@ function FormContainer() {
       ...prevFormSchema,
       { id: nanoid(6), label: "Question", type: "input", required: false },
     ]);
+
+    setScrollToBottom(true);
   };
 
   const handleReorderInputFields = (event: DragEndEvent) => {
@@ -60,8 +63,9 @@ function FormContainer() {
   }, []);
 
   useEffect(() => {
-    if (formSchema.length > (prevFormSchema?.length || 0)) {
+    if (formSchema.length > (prevFormSchema?.length || 0) && scrollToBottom) {
       window.scrollTo(0, document.body.scrollHeight);
+      setScrollToBottom(false);
     }
   }, [formSchema]);
 
