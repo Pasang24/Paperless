@@ -2,8 +2,15 @@ import { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
-const publicRoutes = ["/", "/login", "/signup", "/api/auth"];
-const protectedRoutes = ["/forms", "/create-form"];
+const publicRoutes = [
+  "/",
+  "/login",
+  "/signup",
+  "/api/auth/login",
+  "api/auth/oAuth",
+  "api/auth/signup",
+];
+const protectedRoutes = ["/forms", "/create-form", "api/auth/logout"];
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;

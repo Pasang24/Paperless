@@ -11,9 +11,29 @@ import {
 
 import { Skeleton } from "./ui/skeleton";
 import { ChevronDown, LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 function NavProfile() {
   const { loading, user } = useContext(UserContext);
+
+  const router = useRouter();
+
+  const handleLogout = () => {
+    toast.promise(
+      fetch("/api/auth/logout").then(() => {
+        router.replace("/login");
+      }),
+      {
+        loading: "Logging out...",
+        success: () => {
+          return "Logged out successfully";
+        },
+        error: "Error Logging Out",
+        duration: 3500,
+      }
+    );
+  };
 
   if (loading) {
     return <Skeleton className="w-20 h-4" />;
@@ -25,7 +45,7 @@ function NavProfile() {
         <ChevronDown size={18} />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>
           <LogOut />
           Logout
         </DropdownMenuItem>
