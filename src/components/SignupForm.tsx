@@ -5,7 +5,6 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { User } from "@/types/user";
 
 function SignupForm() {
   const [name, setName] = useState("");
@@ -33,14 +32,11 @@ function SignupForm() {
         setIsSigning(false);
         return;
       }
-      const user: User = await response.json();
-      console.log(user);
 
       router.replace("/forms");
     } catch (error) {
       console.log(error);
       setError("Something went wrong.");
-    } finally {
       setIsSigning(false);
     }
   };
