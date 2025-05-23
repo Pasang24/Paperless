@@ -11,7 +11,7 @@ function HeroSection() {
       </h2>
       <p className="text-sm sm:text-xl lg:text-2xl text-muted-foreground text-center max-w-[700px]">
         Say goodbye to boring forms. Meet Paperless — the free, intuitive form
-        builder you've been looking for.
+        builder you&apos;ve been looking for.
       </p>
       <Link
         href="/login"
