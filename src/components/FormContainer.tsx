@@ -14,6 +14,7 @@ import { NotebookPen, Eye, ArrowLeft, Send } from "lucide-react";
 import { FormInputSchema } from "@/types/form";
 import { usePrevious } from "@/hooks/usePrevious";
 import { nanoid } from "nanoid";
+import { useRouter } from "next/navigation";
 import FormTitleDescription from "./FormTitleDescription";
 import FormInput from "./FormInput";
 import FormPreview from "./FormPreview";
@@ -25,7 +26,10 @@ function FormContainer() {
   const [formSchema, setFormSchema] = useState<FormInputSchema[]>([
     { id: "placeholder_id", label: "Question", type: "input", required: false },
   ]);
+  const [isAddingForm, setIsAddingForm] = useState(false);
   const [scrollToBottom, setScrollToBottom] = useState(false);
+
+  const router = useRouter();
 
   const prevFormSchema = usePrevious(formSchema);
 
@@ -55,6 +59,31 @@ function FormContainer() {
     }
   };
 
+  const handleAddForm = async () => {
+    try {
+      setIsAddingForm(true);
+
+      const response = await fetch("/api/form/add-form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: formTitle,
+          description: formDescription,
+          formSchema,
+        }),
+      });
+
+      const form = await response.json();
+      console.log(form);
+      router.replace("/forms");
+    } catch (error) {
+      console.log(error);
+      setIsAddingForm(false);
+    }
+  };
+
   useEffect(() => {
     // replace the placeholder id with a random id
     setFormSchema([
@@ -76,9 +105,9 @@ function FormContainer() {
           <ArrowLeft />
           Back
         </Link>
-        <Button>
+        <Button disabled={isAddingForm} onClick={handleAddForm}>
           <Send />
-          Publish
+          {isAddingForm ? "Publishing..." : "Publish"}
         </Button>
       </div>
       <Tabs defaultValue="questions">
