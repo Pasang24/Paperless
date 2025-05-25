@@ -1,6 +1,9 @@
+"use client";
+
 import { FormInputSchema } from "@/types/form";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
+import { useRef } from "react";
 import FormInputFieldPreview from "./FormInputFieldPreview";
 
 interface FormPreviewProps {
@@ -9,11 +12,33 @@ interface FormPreviewProps {
     description: string;
     formSchema: FormInputSchema[];
   };
+  mode?: "view" | "preview";
 }
 
-function FormPreview({ formData }: FormPreviewProps) {
+function FormPreview({ formData, mode = "preview" }: FormPreviewProps) {
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (mode === "preview" || !formRef.current) return;
+
+    const data = new FormData(formRef.current);
+
+    const formResponse = formData.formSchema.map((schema) => ({
+      ...schema,
+      value: data.get(schema.label),
+    }));
+
+    console.log(formResponse);
+  };
+
+  const handleClearForm = () => {
+    if (!formRef.current) return;
+
+    formRef.current.reset();
+  };
   return (
-    <div className="space-y-4">
+    <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
       {formData.title || formData.description ? (
         <Card>
           <CardContent className="space-y-6">
@@ -30,12 +55,14 @@ function FormPreview({ formData }: FormPreviewProps) {
         <FormInputFieldPreview key={schema.id} schema={schema} />
       ))}
       <div className="flex justify-between my-4">
-        <Button disabled>Submit</Button>
-        <Button variant={"ghost"} disabled>
+        <Button type="submit" disabled={mode === "preview"}>
+          Submit
+        </Button>
+        <Button type="button" onClick={handleClearForm} variant={"ghost"}>
           Clear Form
         </Button>
       </div>
-    </div>
+    </form>
   );
 }
 

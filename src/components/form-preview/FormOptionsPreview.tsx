@@ -28,7 +28,7 @@ function FormOptionsPreview({ schema }: FormOptionsPreviewProps) {
             </div>
           )}
           {schema.type === "radio" && (
-            <RadioGroup required={schema.required}>
+            <RadioGroup name={schema.label} required={schema.required}>
               {schema.options.map((option) => (
                 <div className="flex items-center space-x-2" key={option.id}>
                   <RadioGroupItem value={option.option} id={option.id} />

@@ -18,7 +18,12 @@ function FormTextInputPreview({ schema }: FormInputPreviewProps) {
             {schema.required && "*"}
           </Label>
           {schema.type === "input" && (
-            <Input type="text" id={schema.id} required={schema.required} />
+            <Input
+              type="text"
+              id={schema.id}
+              name={schema.label}
+              required={schema.required}
+            />
           )}
           {schema.type === "textarea" && (
             <Textarea id={schema.id} required={schema.required} />
