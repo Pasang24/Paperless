@@ -1,8 +1,8 @@
 "use client";
 
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 

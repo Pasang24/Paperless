@@ -1,8 +1,8 @@
 import { FormCheckBox, FormMultiChoice } from "@/types/form";
 import { Label } from "@radix-ui/react-label";
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import { Checkbox } from "./ui/checkbox";
-import { Card, CardContent } from "./ui/card";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { Checkbox } from "../ui/checkbox";
+import { Card, CardContent } from "../ui/card";
 
 interface FormOptionsPreviewProps {
   schema: FormMultiChoice | FormCheckBox;

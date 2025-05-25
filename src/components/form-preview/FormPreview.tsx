@@ -1,6 +1,6 @@
 import { FormInputSchema } from "@/types/form";
-import { Card, CardContent } from "./ui/card";
-import { Button } from "./ui/button";
+import { Card, CardContent } from "../ui/card";
+import { Button } from "../ui/button";
 import FormInputFieldPreview from "./FormInputFieldPreview";
 
 interface FormPreviewProps {

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import {
@@ -15,9 +15,9 @@ import { FormInputSchema } from "@/types/form";
 import { usePrevious } from "@/hooks/usePrevious";
 import { nanoid } from "nanoid";
 import { useRouter } from "next/navigation";
-import FormTitleDescription from "./FormTitleDescription";
-import FormInput from "./FormInput";
-import FormPreview from "./FormPreview";
+import FormTitleDescription from "../form-edit/FormTitleDescription";
+import FormInput from "../form-edit/FormInput";
+import FormPreview from "../form-preview/FormPreview";
 import Link from "next/link";
 
 function FormContainer() {

@@ -1,4 +1,4 @@
-import FeatureCard from "../FeatureCard";
+import FeatureCard from "./FeatureCard";
 
 interface Feature {
   title: string;

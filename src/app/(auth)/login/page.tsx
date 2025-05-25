@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import LoginContainer from "@/components/LoginContainer";
+import LoginContainer from "@/components/auth/LoginContainer";
 
 export const metadata: Metadata = {
   title: "Login",

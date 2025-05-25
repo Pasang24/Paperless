@@ -1,4 +1,4 @@
-import SignupContainer from "@/components/SignupContainer";
+import SignupContainer from "@/components/auth/SignupContainer";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

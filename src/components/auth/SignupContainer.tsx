@@ -1,15 +1,15 @@
-import { Card, CardContent } from "./ui/card";
-import LoginForm from "./LoginForm";
+import { Card, CardContent } from "../ui/card";
 import OAuthLogin from "./OAuthLogin";
 import Link from "next/link";
+import SignupForm from "./SignupForm";
 
-function LoginContainer() {
+function SignupContainer() {
   return (
     <Card className="w-[90%] max-w-[400px] mx-auto my-10">
       <CardContent className="text-center">
-        <h2 className="font-semibold">Log in to Paperless</h2>
+        <h2 className="font-semibold">Create your account</h2>
         <p className="text-sm text-muted-foreground mt-1 mb-4">
-          Welcome back! Please sign in to continue
+          Welcome! Please fill in the details to get started
         </p>
         <OAuthLogin />
         <div className="relative my-6">
@@ -18,14 +18,11 @@ function LoginContainer() {
             or
           </span>
         </div>
-        <LoginForm />
+        <SignupForm />
         <p className="text-sm mt-3">
-          Don&apos;t have an account?{" "}
-          <Link
-            href="/signup"
-            className="text-muted-foreground hover:underline"
-          >
-            Signup
+          Already have an account?{" "}
+          <Link href="/login" className="text-muted-foreground hover:underline">
+            Login
           </Link>
         </p>
       </CardContent>
@@ -33,4 +30,4 @@ function LoginContainer() {
   );
 }
 
-export default LoginContainer;
+export default SignupContainer;

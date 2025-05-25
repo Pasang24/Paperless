@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/custom/Navbar";
 import { UserProvider } from "../context/UserProvider";
 
 function FormsLayout({ children }: { children: React.ReactNode }) {

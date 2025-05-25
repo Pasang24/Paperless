@@ -1,12 +1,12 @@
 import React from "react";
 import { nanoid } from "nanoid";
-import { Card, CardContent } from "./ui/card";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Card, CardContent } from "../ui/card";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 import { GripHorizontal, Copy, Trash2 } from "lucide-react";
-import { Separator } from "./ui/separator";
-import { Switch } from "./ui/switch";
+import { Separator } from "../ui/separator";
+import { Switch } from "../ui/switch";
 import { FormInputSchema } from "@/types/form";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";

@@ -5,9 +5,9 @@ import {
   FormInputSchema,
   FormOption,
 } from "@/types/form";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import { Square, Circle, X, GripVertical } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { nanoid } from "nanoid";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { restrictToParentElement } from "@dnd-kit/modifiers";

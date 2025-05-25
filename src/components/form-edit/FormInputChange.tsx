@@ -4,7 +4,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select";
+} from "../ui/select";
 import { FormInputProps } from "./FormInput";
 import { FormInputSchema } from "@/types/form";
 import { nanoid } from "nanoid";

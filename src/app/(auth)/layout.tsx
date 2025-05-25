@@ -1,5 +1,5 @@
-import AuthNavbar from "@/components/AuthNavbar";
-import Footer from "@/components/Footer";
+import AuthNavbar from "@/components/custom/AuthNavbar";
+import Footer from "@/components/custom/Footer";
 
 function AuthLayout({ children }: { children: React.ReactNode }) {
   return (

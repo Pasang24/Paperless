@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { ClipboardList, Plus } from "lucide-react";
-import Container from "@/components/Container";
-import FormList from "@/components/FormList";
+import Container from "@/components/custom/Container";
+import FormList from "@/components/form-list/FormList";
 import FormListSkeleton from "@/components/loaders/FormListSkeleton";
 import { Suspense } from "react";
 

@@ -1,8 +1,8 @@
 import { FormText } from "@/types/form";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import { Label } from "@radix-ui/react-label";
-import { Textarea } from "./ui/textarea";
-import { Card, CardContent } from "./ui/card";
+import { Textarea } from "../ui/textarea";
+import { Card, CardContent } from "../ui/card";
 
 interface FormInputPreviewProps {
   schema: FormText;

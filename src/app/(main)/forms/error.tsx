@@ -1,6 +1,6 @@
 "use client";
 
-import Container from "@/components/Container";
+import Container from "@/components/custom/Container";
 import ErrorIllustration from "@/components/illustrations/ErrorIllustration";
 import { RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";

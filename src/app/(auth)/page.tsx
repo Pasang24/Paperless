@@ -1,4 +1,4 @@
-import Container from "@/components/Container";
+import Container from "@/components/custom/Container";
 import HeroSection from "@/components/sections/HeroSection";
 import FeatureSection from "@/components/sections/FeatureSection";
 import GetStartedSection from "@/components/sections/GetStartedSection";
