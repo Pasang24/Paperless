@@ -3,6 +3,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { ClipboardList, Plus } from "lucide-react";
 import Container from "@/components/Container";
 import FormList from "@/components/FormList";
+import { Suspense } from "react";
 
 function FormsPage() {
   return (
@@ -20,7 +21,9 @@ function FormsPage() {
           New Form
         </Link>
       </div>
-      <FormList />
+      <Suspense fallback={<>Loading...</>}>
+        <FormList />
+      </Suspense>
     </Container>
   );
 }

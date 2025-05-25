@@ -33,7 +33,7 @@ function FormCard({ formData }: FormCardProps) {
           </p>
           <p className="flex items-center text-sm text-muted-foreground ml-6.5">
             <FileChartLine size={18} />
-            {formData.responseCount} Responses
+            {formData?.responseCount ?? "N/A"} Responses
           </p>
           <div className="flex gap-2 ml-6.5">
             <Button variant={"default"} className="rounded-full">

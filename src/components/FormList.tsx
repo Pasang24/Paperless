@@ -1,51 +1,42 @@
 import React from "react";
 import FormCard from "./FormCard";
+import { cookies } from "next/headers";
 
-const formDatas: {
+interface FormData {
   id: string;
   title: string;
   responseCount: number;
   createdAt: Date;
   updatedAt: Date | null;
-}[] = [
-  {
-    id: "jfhgjb",
-    title: "Contact Form",
-    responseCount: 127,
-    createdAt: new Date(),
-    updatedAt: null,
-  },
-  {
-    id: "jfhgfjf",
-    title: "Contact Form",
-    responseCount: 127,
-    createdAt: new Date(),
-    updatedAt: null,
-  },
-  {
-    id: "jfhgfjfdb",
-    title: "Contact Form",
-    responseCount: 127,
-    createdAt: new Date(),
-    updatedAt: null,
-  },
-  {
-    id: "jfhgf",
-    title: "Contact Form",
-    responseCount: 127,
-    createdAt: new Date(),
-    updatedAt: null,
-  },
-];
+}
 
-function FormList() {
-  return (
-    <div className="my-4 space-y-4">
-      {formDatas.map((formData) => (
-        <FormCard formData={formData} key={formData.id} />
-      ))}
-    </div>
-  );
+async function FormList() {
+  const cookie = await cookies();
+  const token = cookie.get("token")?.value;
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/form/my-forms`,
+      {
+        method: "GET",
+        cache: "no-store",
+        headers: {
+          "Cookie": `token=${token};`,
+        },
+      }
+    );
+    const formDatas: FormData[] = await response.json();
+    return (
+      <div className="my-4 space-y-4">
+        {formDatas?.map((formData) => (
+          <FormCard formData={formData} key={formData.id} />
+        ))}
+      </div>
+    );
+  } catch (error) {
+    console.log(error);
+    throw new Error("There was a problem while getting your forms");
+  }
 }
 
 export default FormList;
