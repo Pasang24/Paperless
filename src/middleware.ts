@@ -7,10 +7,16 @@ const publicRoutes = [
   "/login",
   "/signup",
   "/api/auth/login",
-  "api/auth/oAuth",
-  "api/auth/signup",
+  "/api/auth/oAuth",
+  "/api/auth/signup",
 ];
-const protectedRoutes = ["/forms", "/create-form", "api/auth/logout", "/form"];
+const protectedRoutes = [
+  "/forms",
+  "/create-form",
+  "/api/auth/logout",
+  "/api/form",
+  "/api/user",
+];
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
