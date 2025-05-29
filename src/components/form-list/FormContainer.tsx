@@ -158,6 +158,7 @@ function FormContainer() {
               description: formDescription,
               formSchema,
             }}
+            mode="preview"
           />
         </TabsContent>
       </Tabs>

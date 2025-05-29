@@ -3,24 +3,36 @@
 import { FormInputSchema } from "@/types/form";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import FormInputFieldPreview from "./FormInputFieldPreview";
 
-interface FormPreviewProps {
+interface ViewMode {
+  mode: "view";
+  formId: string;
+}
+
+interface PreviewMode {
+  mode: "preview";
+}
+
+type FormMode = ViewMode | PreviewMode;
+
+type FormPreviewProps = FormMode & {
   formData: {
     title: string;
     description: string;
     formSchema: FormInputSchema[];
   };
-  mode?: "view" | "preview";
-}
+};
 
-function FormPreview({ formData, mode = "preview" }: FormPreviewProps) {
+function FormPreview(props: FormPreviewProps) {
+  const { mode, formData } = props;
+  const [submittingForm, setSubmittingForm] = useState(false);
   const formRef = useRef<HTMLFormElement | null>(null);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (mode === "preview" || !formRef.current) return;
+    if (mode === "preview" || !formRef.current || submittingForm) return;
 
     const data = new FormData(formRef.current);
 
@@ -29,11 +41,23 @@ function FormPreview({ formData, mode = "preview" }: FormPreviewProps) {
       value: data.get(schema.label),
     }));
 
-    console.log(formResponse);
+    try {
+      setSubmittingForm(true);
+      await fetch("/api/response/add-response", {
+        method: "POST",
+        body: JSON.stringify({ formId: props.formId, formResponse }),
+      });
+
+      formRef.current.reset();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmittingForm(false);
+    }
   };
 
   const handleClearForm = () => {
-    if (!formRef.current) return;
+    if (!formRef.current || submittingForm) return;
 
     formRef.current.reset();
   };
@@ -55,10 +79,15 @@ function FormPreview({ formData, mode = "preview" }: FormPreviewProps) {
         <FormInputFieldPreview key={schema.id} schema={schema} />
       ))}
       <div className="flex justify-between my-4">
-        <Button type="submit" disabled={mode === "preview"}>
-          Submit
+        <Button type="submit" disabled={mode === "preview" || submittingForm}>
+          {submittingForm ? "Submiting..." : "Submit"}
         </Button>
-        <Button type="button" onClick={handleClearForm} variant={"ghost"}>
+        <Button
+          type="button"
+          onClick={handleClearForm}
+          variant={"ghost"}
+          disabled={submittingForm}
+        >
           Clear Form
         </Button>
       </div>
