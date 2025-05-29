@@ -1,4 +1,5 @@
 import { Form } from "@/types/form";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -21,6 +22,8 @@ export const POST = async (req: NextRequest) => {
   );
 
   const result = await response.json();
+
+  revalidatePath("/forms");
 
   return NextResponse.json(result, {
     status: response.status,

@@ -28,7 +28,7 @@ async function FormPage({ params }: { params: Promise<Params> }) {
 
   return (
     <Container className="mt-6">
-      <FormPreview formData={form} />
+      <FormPreview formData={form} mode="view" />
     </Container>
   );
 }
