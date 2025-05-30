@@ -9,6 +9,7 @@ import {
   FilePen,
   Trash2,
 } from "lucide-react";
+import FormURLCopyButton from "./FormURLCopyButton";
 
 interface FormCardProps {
   formData: {
@@ -71,6 +72,7 @@ function FormCard({ formData }: FormCardProps) {
                 })
               : "Not Edited"}
           </p>
+          <FormURLCopyButton formId={formData.id} />
         </div>
       </CardContent>
     </Card>
