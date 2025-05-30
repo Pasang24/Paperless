@@ -5,6 +5,7 @@ import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
 import { useRef, useState } from "react";
 import FormInputFieldPreview from "./FormInputFieldPreview";
+import { useRouter } from "next/navigation";
 
 interface ViewMode {
   mode: "view";
@@ -29,6 +30,7 @@ function FormPreview(props: FormPreviewProps) {
   const { mode, formData } = props;
   const [submittingForm, setSubmittingForm] = useState(false);
   const formRef = useRef<HTMLFormElement | null>(null);
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -48,10 +50,9 @@ function FormPreview(props: FormPreviewProps) {
         body: JSON.stringify({ formId: props.formId, formResponse }),
       });
 
-      formRef.current.reset();
+      router.replace(`/view-form/${props.formId}/form-response`);
     } catch (error) {
       console.log(error);
-    } finally {
       setSubmittingForm(false);
     }
   };
