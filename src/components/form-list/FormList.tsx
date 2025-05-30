@@ -1,6 +1,7 @@
 import React from "react";
 import FormCard from "./FormCard";
 import { cookies } from "next/headers";
+import EmptyFormList from "./EmptyFormList";
 
 interface FormData {
   id: string;
@@ -26,6 +27,10 @@ async function FormList() {
       }
     );
     const formDatas: FormData[] = await response.json();
+
+    if (formDatas.length === 0) {
+      return <EmptyFormList />;
+    }
     return (
       <div className="my-4 space-y-4">
         {formDatas?.map((formData) => (
