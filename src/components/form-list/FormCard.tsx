@@ -7,9 +7,9 @@ import {
   CalendarSync,
   Eye,
   FilePen,
-  Trash2,
 } from "lucide-react";
 import FormURLCopyButton from "./FormURLCopyButton";
+import DeleteFormButton from "./DeleteFormButton";
 
 interface FormCardProps {
   formData: {
@@ -45,10 +45,7 @@ function FormCard({ formData }: FormCardProps) {
               <FilePen />
               Edit
             </Button>
-            <Button variant={"secondary"} className="rounded-full">
-              <Trash2 />
-              Delete
-            </Button>
+            <DeleteFormButton formId={formData.id} />
           </div>
         </div>
         <div className="flex flex-col gap-2 ml-6.5">
